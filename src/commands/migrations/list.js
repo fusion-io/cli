@@ -20,8 +20,8 @@ exports.builder = yargs => {
 
 const print = (set) => {
     let table = new Table({
-        head: ['', chalk.cyan('Name'), chalk.cyan('Run at')]
-        , colWidths: [3, 40, 30]
+        head: ['', chalk.cyan('name'), chalk.cyan('run at')],
+        colWidths: [3, 40, 30]
     });
 
     set.defines().forEach(({name}) => {
