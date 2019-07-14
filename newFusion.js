@@ -24,7 +24,7 @@ exports.handler = ({target, application}) => {
 
     mkdirp(tmpPath)
         .then(() => download(target).pipe(unzipper.Extract({ path: tmpPath })).promise())
-        .then(() => mv(tmpPath + '/fusion-1.4.3', appPath))
+        .then(() => mv(tmpPath + '/fusion-1.4', appPath))
 
         .then(() => console.log('tada'))
         .then(() => {
@@ -56,6 +56,6 @@ exports.builder = yargs => {
     yargs.option('t', {
         description: 'Url of the Fusion release zip',
         alias: 'target',
-        default: 'https://github.com/fusion-io/fusion/archive/1.4.3.zip'
+        default: 'https://github.com/fusion-io/fusion/archive/1.4.zip'
     })
 };
