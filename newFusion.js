@@ -5,6 +5,7 @@ const chalk     = require('chalk');
 const util      = require('util');
 const mkdirp    = util.promisify(require('mkdirp'));
 const mv        = util.promisify(require('mv'));
+const copy      = require('fs-extra').copy;
 
 exports.command = ['new <application>', 'create <application>'];
 exports.description = 'Create a new Fusion application';
@@ -23,6 +24,7 @@ exports.handler = ({target, application}) => {
     mkdirp(tmpPath)
         .then(() => download(target).pipe(unzipper.Extract({ path: tmpPath })).promise())
         .then(() => mv(tmpPath + '/fusion-1.4', appPath))
+        .then(() => copy(appPath + '/config/env/local.env.example.js', appPath + '/config/env/local.env.js'))
         .then(() => {
             console.log(chalk.gray(`Created application at [${chalk.cyan(appPath)}]`));
             console.log(chalk.green(`Your application are now ready. Type following command to get start`));
