@@ -1,7 +1,7 @@
 const {Storage} = require("@fusion.io/framework/Contracts");
 
 exports.command     = 'dump <key>';
-exports.desc        = 'Dump a storage value';
+exports.desc        = 'Dump a storage item';
 
 exports.builder     = yargs => {
     yargs.positional('key', {

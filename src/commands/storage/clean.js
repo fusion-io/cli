@@ -2,7 +2,7 @@ const {Storage} = require("@fusion.io/framework/Contracts");
 const chalk     = require('chalk');
 
 exports.command     = 'clean';
-exports.desc        = 'Cleanup the storage';
+exports.desc        = 'Cleanup the expired storage items';
 
 exports.handler     = async ({container, storage}) => {
 
