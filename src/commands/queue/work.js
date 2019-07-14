@@ -4,6 +4,7 @@ const chalk         = require("chalk");
 
 
 exports.command = "work [queue]";
+exports.desc    = "Start a worker listening on a given queue";
 
 exports.builder = (yargs) => {
 
