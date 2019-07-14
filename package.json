@@ -1,6 +1,6 @@
 {
   "name": "@fusion.io/cli",
-  "version": "1.4.4-0",
+  "version": "1.4.5-0",
   "bin": {
     "fusion": "./bin/fusion-cli.js"
   },
