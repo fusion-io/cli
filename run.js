@@ -3,7 +3,6 @@ const yargs         = require('yargs');
 const findUp        = require('find-up');
 const rcPath        = findUp.sync(['.fusionrc', '.fusionrc.json']);
 const rc            = rcPath ? JSON.parse(fs.readFileSync(rcPath)) : {};
-const chalk         = require('chalk');
 
 const bootFusion = async (argv) => {
     if (!argv.container) {
@@ -22,54 +21,41 @@ const bootFusion = async (argv) => {
     return argv;
 };
 
-module.exports = yargs
-    .command(require('./newFusion'))
-    .command({
-        command: '$0',
-        builder: yargs => {
-            if (!rcPath) {
-                console.error(chalk.gray(`It seems you are not in a fusion application root directory`));
-                process.exit(0);
-            }
 
-            require('app-module-path').addPath(process.cwd() + '/node_modules');
+const argv = yargs
+    .command(require('./newFusion'));
 
-            require('@babel/register')({
-                    "plugins": [
-                        ["@babel/plugin-proposal-decorators", {"legacy": true}],
-                        "babel-plugin-dynamic-import-node"
-                    ],
-                    "presets": [
-                        [
-                            "@babel/preset-env",
-                            {
-                                "targets": {
-                                    "node": "8"
-                                }
-                            }
-                        ]
-                    ]
+
+if (rcPath) {
+    require('@babel/register')({
+        "plugins": [
+            ["@babel/plugin-proposal-decorators", {"legacy": true}],
+            "babel-plugin-dynamic-import-node"
+        ],
+        "presets": [
+            [
+                "@babel/preset-env",
+                {
+                    "targets": {
+                        "node": "8"
+                    }
                 }
-            );
+            ]
+        ]
+    });
 
-
-
-        yargs
-                .commandDir(__dirname + '/src/commands')
-                .commandDir(process.cwd() + '/' + rc.commands)
-                .middleware(bootFusion)
-        },
-        handler: () => {}
-    })
-    .middleware(async argv => {
-        if (!argv.rc) {
-            return {
-                ...argv,
-                rc
+    argv.command({...require(process.cwd() + '/' + rc.console).default, middleware: [bootFusion]})
+        .commandDir(process.cwd() + '/' + rc.commands)
+        .middleware(bootFusion)
+        .middleware(async argv => {
+            if (!argv.rc) {
+                return { ...argv, rc }
             }
-        }
-        return argv;
-    })
-.help()
-.argv
+            return argv;
+        })
+}
+
+module.exports = argv
+    .help()
+    .argv
 ;
