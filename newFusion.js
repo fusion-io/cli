@@ -23,7 +23,7 @@ exports.handler = ({target, application}) => {
 
     mkdirp(tmpPath)
         .then(() => download(target).pipe(unzipper.Extract({ path: tmpPath })).promise())
-        .then(() => mv(tmpPath + '/fusion-1.4', appPath))
+        .then(() => mv(tmpPath + '/fusion-1.5', appPath))
         .then(() => copy(appPath + '/config/env/local.env.example.js', appPath + '/config/env/local.env.js'))
         .then(() => {
             console.log(chalk.gray(`Created application at [${chalk.cyan(appPath)}]`));
@@ -45,6 +45,6 @@ exports.builder = yargs => {
     yargs.option('t', {
         description: 'Url of the Fusion release zip',
         alias: 'target',
-        default: 'https://github.com/fusion-io/fusion/archive/1.4.zip'
+        default: 'https://github.com/fusion-io/fusion/archive/1.5.zip'
     })
 };
