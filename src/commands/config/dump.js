@@ -7,12 +7,12 @@ exports.command = "dump [key]";
 exports.builder = yargs => {
     yargs.positional('key', {
         description: "Config key",
-        type: "string"
+        type: "string",
+        default: null
     });
 };
 
 exports.handler = ({container, key}) => {
     const config = container.make(Config);
-
     console.log(key === null ? config.hashed : config.get(key));
 };

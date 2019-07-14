@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+require('app-module-path').addPath(process.cwd() + '/node_modules');
+
 require('@babel/register')({
         "plugins": [
             ["@babel/plugin-proposal-decorators", {"legacy": true}],
