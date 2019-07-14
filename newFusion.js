@@ -10,4 +10,3 @@ exports.builder = yargs => {
         description: 'Application name. A valid npm package name is required',
     });
 };
-
