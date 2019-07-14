@@ -18,19 +18,13 @@ exports.handler = ({target, application}) => {
         return;
     }
 
-
-
     console.log(chalk.gray(`Creating [${chalk.cyan(application)}]`));
 
     mkdirp(tmpPath)
         .then(() => download(target).pipe(unzipper.Extract({ path: tmpPath })).promise())
         .then(() => mv(tmpPath + '/fusion-1.4', appPath))
-
-        .then(() => console.log('tada'))
         .then(() => {
             console.log(chalk.gray(`Created application at [${chalk.cyan(appPath)}]`));
-        })
-        .then(() => {
             console.log(chalk.green(`Your application are now ready. Type following command to get start`));
             console.log(chalk.gray(`cd ${chalk.cyan(application)} && npm install && npm start`));
         })
@@ -38,13 +32,6 @@ exports.handler = ({target, application}) => {
             process.exit(0);
         })
     ;
-
-
-    // download(target)
-    //     .pipe(unzipper.Extract({ path: tmpPath }))
-    //     .promise()
-    //     .then(() => mv(tmpPath + '/fusion-1.4.3/*', appPath))
-
 };
 
 exports.builder = yargs => {
