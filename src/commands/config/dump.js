@@ -7,7 +7,7 @@ exports.command = "dump [key]";
 exports.builder = yargs => {
     yargs.positional('key', {
         description: "Config key",
-        default: null
+        type: "string"
     });
 };
 
