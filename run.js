@@ -32,7 +32,10 @@ module.exports = yargs
                 process.exit(0);
             }
 
-            require('app-module-path').addPath(process.cwd() + '/node_modules');
+            const amp = require('app-module-path');
+            amp.addPath(process.cwd() + '/node_modules');
+            amp.enableForDir(process.cwd() + '/node_modules/@fusion');
+            amp.enableForDir(process.cwd() + '/node_modules/@babel/register');
 
             require('@babel/register')({
                     "plugins": [
