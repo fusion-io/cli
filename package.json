@@ -4,13 +4,13 @@
   "bin": {
     "fusion": "./bin/fusion-cli.js"
   },
-  "description": "",
-  "main": "index.js",
+  "description": "Command Line tool for scaffolding a Fusion baked application",
+  "main": "run.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "rikky <son.levuthai@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.5.4",
     "@babel/plugin-proposal-decorators": "^7.4.4",
